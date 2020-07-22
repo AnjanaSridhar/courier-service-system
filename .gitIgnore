@@ -1,0 +1,23 @@
+.idea/*
+*.iml
+*.ipr
+*.iws
+
+.gradle
+**/build/**
+out
+
+.project
+
+.classpath
+
+.settings
+gradlew*
+gradle/*
+bin/
+
+gradlew*
+.nb-gradle/
+
+# OS X
+.DS_Store
