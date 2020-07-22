@@ -7,11 +7,19 @@ public class OrderResult {
     private List<Parcel> parcelList;
     private BigDecimal totalCost;
     private String currency;
+    private BigDecimal speedyShipping;
 
-    public OrderResult(List<Parcel> parcelList, BigDecimal totalCost, String currency) {
+    public OrderResult(List<Parcel> parcelList, BigDecimal totalCost) {
         this.parcelList = parcelList;
         this.totalCost = totalCost;
-        this.currency = currency;
+    }
+
+    public BigDecimal getSpeedyShipping() {
+        return speedyShipping;
+    }
+
+    public void setSpeedyShipping(BigDecimal speedyShipping) {
+        this.speedyShipping = speedyShipping;
     }
 
     public String getCurrency() {
