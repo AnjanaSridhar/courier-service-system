@@ -8,6 +8,7 @@ public class OrderResult {
     private BigDecimal totalCost;
     private String currency;
     private BigDecimal speedyShipping;
+    private BigDecimal discount;
 
     public OrderResult(List<Parcel> parcelList, BigDecimal totalCost) {
         this.parcelList = parcelList;
@@ -20,6 +21,14 @@ public class OrderResult {
 
     public void setSpeedyShipping(BigDecimal speedyShipping) {
         this.speedyShipping = speedyShipping;
+    }
+
+    public BigDecimal getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(BigDecimal discount) {
+        this.discount = discount;
     }
 
     public String getCurrency() {

@@ -3,6 +3,7 @@ package com.courierservice.controllers;
 import com.courierservice.models.Order;
 import com.courierservice.models.OrderResult;
 import com.courierservice.models.Parcel;
+import com.courierservice.services.DiscountService;
 import com.courierservice.services.OrderService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,12 @@ public class CourierController {
     private static final Gson GSON = new Gson();
 
     private OrderService orderService;
+    private DiscountService discountService;
 
     @Autowired
-    public CourierController(OrderService orderService) {
+    public CourierController(OrderService orderService, DiscountService discountService) {
         this.orderService = orderService;
+        this.discountService = discountService;
     }
 
     @RequestMapping(
@@ -38,6 +41,7 @@ public class CourierController {
         Order order = GSON.fromJson(body, Order.class);
         List<Parcel> parcelList = order.getParcelList();
         OrderResult orderResult = new OrderResult(parcelList, orderService.totalCost(parcelList));
+        orderResult = discountService.applyDiscount(orderResult);
         orderResult = orderService.applySpeedyShipping(order.isSpeedyShipping(), orderResult);
         return ResponseEntity.status(HttpStatus.CREATED).body(GSON.toJson(orderResult));
     }
