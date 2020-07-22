@@ -7,10 +7,12 @@ public class Parcel {
     private BigDecimal cost;
     private ParcelType type;
     private String name;
+    private int weight;
 
-    public Parcel(int dimension, String name) {
+    public Parcel(int dimension, String name, int weight) {
         this.dimension = dimension;
         this.name = name;
+        this.weight = weight;
         calculateType(this.dimension);
     }
 
@@ -31,6 +33,14 @@ public class Parcel {
             this.setType(ParcelType.XL);
             this.setCost(new BigDecimal(25));
         }
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 
     public String getName() {
