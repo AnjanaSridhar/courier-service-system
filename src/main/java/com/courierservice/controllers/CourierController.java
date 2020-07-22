@@ -38,10 +38,14 @@ public class CourierController {
     public ResponseEntity<String> makeOrder(
             @RequestBody(required = false) String body
     ) {
+        //Read input
         Order order = GSON.fromJson(body, Order.class);
         List<Parcel> parcelList = order.getParcelList();
+        //Get total cost for order
         OrderResult orderResult = new OrderResult(parcelList, orderService.totalCost(parcelList));
+        //Check if discounts are applicable and apply them
         orderResult = discountService.applyDiscount(orderResult);
+        //Check if speedy shipping was selected
         orderResult = orderService.applySpeedyShipping(order.isSpeedyShipping(), orderResult);
         return ResponseEntity.status(HttpStatus.CREATED).body(GSON.toJson(orderResult));
     }
