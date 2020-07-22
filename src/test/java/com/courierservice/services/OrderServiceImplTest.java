@@ -57,6 +57,20 @@ public class OrderServiceImplTest {
     }
 
     @Test
+    public void totalCost_With_OverWeight_Heavy_Parcel() {
+        //Given
+        Parcel parcel1 = new Parcel(1, "parcel1", 1);
+        Parcel parcel2 = new Parcel(11, "parcel2", 51);
+
+        //When
+        BigDecimal result = orderService.totalCost(Lists.newArrayList(parcel1, parcel2));
+
+        //Then
+        assertNotNull(result);
+        assertEquals(new BigDecimal(54), result);
+    }
+
+    @Test
     public void buildOrder_With_SpeedyShipping_Without_Overweight() {
         //Given
         Parcel parcel1 = new Parcel(1, "parcel1", 1);
@@ -89,4 +103,5 @@ public class OrderServiceImplTest {
         assertNotNull(result.getSpeedyShipping());
         assertEquals(result.getSpeedyShipping().multiply(new BigDecimal(2)), result.getTotalCost());
     }
+
 }

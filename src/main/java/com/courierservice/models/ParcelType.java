@@ -5,4 +5,5 @@ public enum ParcelType {
     MEDIUM,
     LARGE,
     XL,
+    HEAVY,
 }

@@ -11,6 +11,7 @@ public class OrderServiceImpl implements OrderService {
     private static final BigDecimal TWO = new BigDecimal(2);
     private static final BigDecimal SPEEDY_SHIPPING = TWO;
     private static final BigDecimal OVERWEIGHT_CHARGE = TWO;
+    private static final BigDecimal HEAVY_CHARGE = BigDecimal.ONE;
 
     @Override
     public BigDecimal totalCost(List<Parcel> parcelList) {
@@ -30,14 +31,16 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private BigDecimal getOverWeightCharge(List<Parcel> parcels){
-        BigDecimal extra_charge = BigDecimal.ZERO;
+        BigDecimal charge = BigDecimal.ZERO;
         for(Parcel parcel : parcels) {
             int acceptableWeight = acceptableWeight(parcel.getType());
+            BigDecimal extra_charge = OVERWEIGHT_CHARGE;
             if(parcel.getWeight() > acceptableWeight){
-                extra_charge = new BigDecimal(parcel.getWeight() - acceptableWeight).multiply(OVERWEIGHT_CHARGE);
+                if(ParcelType.HEAVY == parcel.getType()) extra_charge = HEAVY_CHARGE;
+                charge = new BigDecimal(parcel.getWeight() - acceptableWeight).multiply(extra_charge);
             }
         }
-        return extra_charge;
+        return charge;
     }
 
     private int acceptableWeight(ParcelType parcelType) {
@@ -46,6 +49,7 @@ public class OrderServiceImpl implements OrderService {
             case MEDIUM: return 3;
             case LARGE: return 6;
             case XL: return 10;
+            case HEAVY: return 50;
         }
         return 0;
     }

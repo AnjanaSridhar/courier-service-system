@@ -33,6 +33,10 @@ public class Parcel {
             this.setType(ParcelType.XL);
             this.setCost(new BigDecimal(25));
         }
+        if(this.weight >= 50) {
+            this.setType(ParcelType.HEAVY);
+            this.setCost(new BigDecimal(50));
+        }
     }
 
     public int getWeight() {
